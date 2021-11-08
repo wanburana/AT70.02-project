@@ -2,10 +2,11 @@ import pygame
 
 from configs import *
 import pathfinding as pf
-import pathfinding.algorithms.astar as astar
+import pathfinding.algorithms as algor
 
 def run_game(screen):
     grid = pf.Grid(screen, rows=ROWS, cols=WIDTH)
+    model = algor.AStar() # AStar, Dijkstra, Bellman algorithms
 
     # Event loop
     while 1:
@@ -43,8 +44,8 @@ def run_game(screen):
                 if event.key == pygame.K_SPACE and start and end:
                     # for every spot in grid, put its valid adjecent spot to its neighbors list
                     grid.update_spot_neighbors()
-                    astar.algorithm(lambda: grid.draw(), grid)
-            
+                    # execute algorithm
+                    model.forward(grid)
                 if event.key == pygame.K_c:
                     grid = pf.Grid(screen, rows=ROWS, cols=WIDTH)
 
