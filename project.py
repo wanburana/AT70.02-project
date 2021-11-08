@@ -1,6 +1,7 @@
 import pygame
 import math
 from queue import PriorityQueue
+import numpy as np
 
 WIDTH = 600
 WIN = pygame.display.set_mode((WIDTH, WIDTH))
@@ -111,8 +112,15 @@ def draw_grid(win, rows, width):
     for j in range(rows):
         pygame.draw.line(win, GREY, (gap * j, 0), (gap * j, width))
 
-def draw(win, grid, rows, width):
+def draw(win, grid, rows, width, pattern=None):
     win.fill(WHITE)
+
+    # assign the barrier given the pattern
+    if pattern is not None:
+        for i, row in enumerate(grid):
+            for j, spot in enumerate(row):
+                if pattern[i][j]:
+                    spot.make_barrier()
 
     for row in grid:
         for spot in row:
@@ -176,8 +184,14 @@ def algorithm(draw, grid, start, end):
 
     return False
 
+def create_random_barrier_state(rows, threshold):
+    arr = np.random.rand(rows, rows) 
+    arr_binarized = np.int32(arr <= threshold)
+    return arr_binarized
+
 def main(win, width):
     ROWS = 50
+    RANDOM_BARRIER_THRESHOLD = 0.3
     grid = make_grid(ROWS, width) # create (invisible) grid template
 
     start = None
@@ -186,8 +200,10 @@ def main(win, width):
     run = True
     started = False
 
+    barrier_pattern = create_random_barrier_state(ROWS, RANDOM_BARRIER_THRESHOLD)
+
     while run:
-        draw(WIN, grid, ROWS, WIDTH) # draw grid and other coloring
+        draw(WIN, grid, ROWS, WIDTH, barrier_pattern) # draw grid and other coloring
         for event in pygame.event.get():
             if event.type == pygame.QUIT: 
                 run = False
@@ -225,7 +241,8 @@ def main(win, width):
                         for spot in row:
                             spot.update_neighbors(grid) 
                     algorithm(lambda: draw(win, grid, ROWS, width), grid, start, end)
-            
+
+                
                 if event.key == pygame.K_c:
                     start = None
                     end = None
