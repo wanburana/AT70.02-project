@@ -1,6 +1,7 @@
 WIDTH = 600
 PYGAME_TITLE = "A* Path Finding Algorithm"
 ROWS = 50
+RANDOM_BARRIER_THRESHOLD = 0.3
 
 
 RED = (255, 0, 0)

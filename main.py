@@ -5,7 +5,8 @@ import pathfinding as pf
 import pathfinding.algorithms as algor
 
 def run_game(screen):
-    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH)
+    generate_barrier = True
+    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=generate_barrier)
     model = algor.AStar() # AStar, Dijkstra, Bellman algorithms
 
     # Event loop
@@ -47,7 +48,7 @@ def run_game(screen):
                     # execute algorithm
                     model.forward(grid)
                 if event.key == pygame.K_c:
-                    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH)
+                    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=generate_barrier)
 
 
 def main():

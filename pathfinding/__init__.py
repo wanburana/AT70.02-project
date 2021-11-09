@@ -1,4 +1,5 @@
 import pygame
+import numpy as np
 from configs import *
 
 class Spot:
@@ -74,7 +75,7 @@ class Spot:
 
 
 class Grid:
-    def __init__(self, screen, rows, cols):
+    def __init__(self, screen, rows, cols, generate_barrier=False, threshold=RANDOM_BARRIER_THRESHOLD):
         self.screen = screen
         self.rows = rows
         self.cols = cols
@@ -82,6 +83,12 @@ class Grid:
         self._end = None # spot
         self._spots = []
         self.initial_elements()
+
+        # auto generate map
+        self.generate_barrier = generate_barrier
+        self.threshold = threshold
+        if self.generate_barrier:
+            self.pattern = self.random_barrier_state()
 
     def get_start(self) -> Spot:
         return self._start
@@ -99,6 +106,18 @@ class Grid:
 
     def get_spots(self):
         return self._spots
+
+    def random_barrier_state(self):
+        arr = np.random.rand(self.rows, self.rows) 
+        arr_binarized = np.int32(arr <= self.threshold)
+        return arr_binarized
+    
+    def generate_barrier_by_pattern(self, pattern):
+        # assign the barrier given the pattern
+        for i, rows in enumerate(self._spots):
+            for j, spot in enumerate(rows):
+                if pattern[i][j]:
+                    spot.make_barrier()
 
     def initial_elements(self):
         self._spots = []
@@ -123,6 +142,9 @@ class Grid:
 
     def draw(self):
         # win.fill(WHITE)
+        if self.generate_barrier:
+            self.generate_barrier_by_pattern(self.pattern)
+
         self._draw_spot()
         self._draw_grid()
         pygame.display.update()
