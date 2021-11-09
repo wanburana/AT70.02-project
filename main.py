@@ -32,7 +32,7 @@ def run_game(screen):
                 elif spot != start and spot != end:
                     spot.make_barrier()
 
-            elif mouse2:
+            elif mouse3:
                 pos = pygame.mouse.get_pos()
                 spot = grid.get_spot_by_pos(pos) # get spot object from clicked mouse position
                 spot.reset()

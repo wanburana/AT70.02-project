@@ -3,7 +3,7 @@ from queue import PriorityQueue
 from .interface import AlgorithmModule
 
 class AStar(AlgorithmModule):
-    def h(slef, p1, p2):
+    def h(self, p1, p2):
         x1, y1 = p1
         x2, y2 = p2
 
