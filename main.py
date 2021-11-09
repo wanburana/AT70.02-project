@@ -5,9 +5,9 @@ import pathfinding as pf
 import pathfinding.algorithms as algor
 
 def run_game(screen):
-    generate_barrier = True
+    generate_barrier = False
     grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=generate_barrier)
-    model = algor.AStar() # AStar, Dijkstra, Bellman algorithms
+    model = algor.Dijkstra() # AStar, Dijkstra, Bellman algorithms
 
     # Event loop
     while 1:
