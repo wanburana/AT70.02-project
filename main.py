@@ -3,9 +3,16 @@ from configs import *
 import pathfinding as pf
 import pathfinding.algorithms as algor
 
+def get_model(model_name):
+    name = model_name.lower()
+    if name == 'dijkstra':
+        return algor.Dijkstra()
+    return algor.AStar()
+
+
 def run_game(screen):
     grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, load_filename=LOAD_MAP_NAME)
-    model = algor.Dijkstra() # AStar, Dijkstra, Bellman algorithms
+    model = get_model(MODEL_NAME) # AStar, Dijkstra, Bellman algorithms
 
     # Event loop
     while 1:
