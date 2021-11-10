@@ -13,7 +13,7 @@ PYGAME_TITLE = "A* Path Finding Algorithm"
     - Map is not uploaded to Github.
 '''
 LOAD_MAP_NAME=None
-LOAD_MAP_NAME='map-50x50.json' # None or filename
+# LOAD_MAP_NAME='map-50x50.json' # None or filename
 
 
 '''
