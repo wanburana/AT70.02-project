@@ -1,12 +1,10 @@
 import pygame
-
 from configs import *
 import pathfinding as pf
 import pathfinding.algorithms as algor
 
 def run_game(screen):
-    generate_barrier = False
-    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=generate_barrier)
+    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, load_filename=LOAD_MAP_NAME)
     model = algor.Dijkstra() # AStar, Dijkstra, Bellman algorithms
 
     # Event loop
@@ -20,7 +18,7 @@ def run_game(screen):
             start = grid.get_start()
             end = grid.get_end()
 
-            # left, middle mouse
+            # left, middle, right mouse
             (mouse1, mouse2, mouse3) = pygame.mouse.get_pressed()
             if mouse1:
                 pos = pygame.mouse.get_pos()
@@ -48,7 +46,10 @@ def run_game(screen):
                     # execute algorithm
                     model.forward(grid)
                 if event.key == pygame.K_c:
-                    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=generate_barrier)
+                    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, load_filename=LOAD_MAP_NAME)
+                if event.key == pygame.K_s:
+                    grid.save()
+                    print('Saved successfully.')
 
 
 def main():

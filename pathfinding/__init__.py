@@ -1,12 +1,13 @@
 import pygame
 import numpy as np
 from configs import *
+import fastjson as fj
 
 class Spot:
     def __init__(self, screen, row, col, width, total_rows):
         self.screen = screen
-        self.row = row
-        self.col = col
+        self.row = row # index x in spots
+        self.col = col # index y in spots
         self.x = row * width
         self.y = col * width
         self.color = WHITE
@@ -70,12 +71,31 @@ class Spot:
         if self.col > 0 and not grid[self.row][self.col - 1].is_barrier(): # LEFT
             self.neighbors.append(grid[self.row][self.col - 1])
 
+    def load(self, row, col, color, width, total_rows):
+        self.row = row
+        self.col = col
+        self.x = row * width
+        self.y = col * width
+        self.color = tuple(color) # json store as list
+        self.width = width
+        self.total_rows = total_rows
+
+    def save(self):
+        data = {
+            "row": self.row,
+            "col": self.col,
+            "color": self.color,
+            "width": self.width,
+            "total_rows": self.total_rows
+        }
+        return data
+
     def __lt__(self, other):
         return False
 
 
 class Grid:
-    def __init__(self, screen, rows, cols, generate_barrier=False, threshold=RANDOM_BARRIER_THRESHOLD):
+    def __init__(self, screen, rows, cols, generate_barrier=False, threshold=RANDOM_BARRIER_THRESHOLD, load_filename=None):
         self.screen = screen
         self.rows = rows
         self.cols = cols
@@ -85,10 +105,17 @@ class Grid:
         self.initial_elements()
 
         # auto generate map
+        # if load is on, agm will be disabled.
         self.generate_barrier = generate_barrier
         self.threshold = threshold
         if self.generate_barrier:
             self.pattern = self.random_barrier_state()
+            self.generate_barrier_by_pattern(self.pattern)
+        
+        # load map
+        self.load_filename = load_filename
+        if self.load_filename:
+            self.load()
 
     def get_start(self) -> Spot:
         return self._start
@@ -142,9 +169,6 @@ class Grid:
 
     def draw(self):
         # win.fill(WHITE)
-        if self.generate_barrier:
-            self.generate_barrier_by_pattern(self.pattern)
-
         self._draw_spot()
         self._draw_grid()
         pygame.display.update()
@@ -164,3 +188,33 @@ class Grid:
         for rows in self._spots:
             for spot in rows:
                 spot.update_neighbors(self._spots)
+    
+    def load(self):
+        data = fj.loadJson2Dict(self.load_filename)
+        self.rows = data['rows']
+        self.cols = data['cols']
+
+        for data_spot in data['spots']:
+            row, col = data_spot['row'], data_spot['col']
+            spot = self._spots[row][col]
+            spot.load(**data_spot)
+        self.update_spot_neighbors()
+
+        self._start = self._spots[data['start']['row']][data['start']['col']]
+        self._end = self._spots[data['end']['row']][data['end']['col']]
+
+    def save(self):
+        spots = []
+        for rows in self._spots:
+            for spot in rows:
+                spots.append(spot.save())
+
+        data = {
+            "rows": self.rows,
+            "cols": self.cols,
+            "start": self._start.save(),
+            "end": self._end.save(),
+            "spots": spots
+        }
+        filename = f"map-{self.rows}x{self.rows}.json"
+        fj.save2Json(data, filename)
