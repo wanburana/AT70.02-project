@@ -9,10 +9,13 @@ def get_model(model_name):
         return algor.Dijkstra()
     return algor.AStar()
 
-
-def run_game(screen):
+def initial_variables(screen):
     grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, load_filename=LOAD_MAP_NAME)
     model = get_model(MODEL_NAME) # AStar, Dijkstra, Bellman algorithms
+    return grid, model
+
+def run_game(screen):
+    grid, model = initial_variables(screen)
 
     # Event loop
     while 1:
@@ -53,7 +56,7 @@ def run_game(screen):
                     # execute algorithm
                     model.forward(grid)
                 if event.key == pygame.K_c:
-                    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, load_filename=LOAD_MAP_NAME)
+                    grid, model = initial_variables(screen)
                 if event.key == pygame.K_s:
                     grid.save()
                     print('Saved successfully.')

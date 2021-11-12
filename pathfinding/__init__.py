@@ -1,4 +1,5 @@
 import pygame
+import time
 import numpy as np
 from configs import *
 import fastjson as fj
@@ -205,8 +206,16 @@ class Grid:
 
     def save(self):
         spots = []
+        start_pos = (self._start.row, self._start.col)
+        end_pos = (self._end.row, self._end.col)
         for rows in self._spots:
             for spot in rows:
+                # filter start, end and barrier only for save
+                pos = (spot.row, spot.col)
+                if not spot.is_barrier() and not (pos == start_pos or pos == end_pos):
+                    spot.reset()
+                if pos == start_pos: spot.make_start()
+                elif pos == end_pos: spot.make_end()
                 spots.append(spot.save())
 
         data = {
@@ -216,5 +225,5 @@ class Grid:
             "end": self._end.save(),
             "spots": spots
         }
-        filename = f"map-{self.rows}x{self.rows}.json"
+        filename = f"map-{MODEL_NAME.lower()}-{self.rows}x{self.rows}-{int(time.time())}.json"
         fj.save2Json(data, filename)
