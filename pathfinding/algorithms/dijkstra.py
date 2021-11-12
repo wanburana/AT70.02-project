@@ -3,7 +3,9 @@ from queue import PriorityQueue
 from .interface import AlgorithmModule
 
 class Dijkstra(AlgorithmModule):
-
+    def __init__(self):
+        super().__init__()
+        
     def reconstruct_path(self, came_from, current, draw):
         while current in came_from:
             current = came_from[current]
@@ -51,4 +53,5 @@ class Dijkstra(AlgorithmModule):
             draw()
             if current != start:
                 current.make_closed()
+                super().count_closed()
         return False

@@ -3,6 +3,9 @@ from queue import PriorityQueue
 from .interface import AlgorithmModule
 
 class AStar(AlgorithmModule):
+    def __init__(self):
+        super().__init__()
+
     def h(self, p1, p2):
         x1, y1 = p1
         x2, y2 = p2
@@ -56,4 +59,5 @@ class AStar(AlgorithmModule):
             draw()
             if current != start:
                 current.make_closed()
+                super().count_closed()
         return False
