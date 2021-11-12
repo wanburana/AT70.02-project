@@ -9,10 +9,36 @@ def get_model(model_name):
         return algor.Dijkstra()
     return algor.AStar()
 
-def initial_variables(screen):
-    grid = pf.Grid(screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, load_filename=LOAD_MAP_NAME)
+def initial_variables(screen=None):
+    grid = pf.Grid(screen=screen, rows=ROWS, cols=WIDTH, generate_barrier=GENERATE_BARRIER, generate_start_stop=GENERATE_START_STOP, load_filename=LOAD_MAP_NAME)
     model = get_model(MODEL_NAME) # AStar, Dijkstra, Bellman algorithms
     return grid, model
+
+def execute_model(grid, model):
+    # for every spot in grid, put its valid adjecent spot to its neighbors list
+    grid.update_spot_neighbors()
+    # execute algorithm
+    is_found_stop = model.forward(grid)
+    print(f"{MODEL_NAME}: Spot closed (RED): {model.total_closed}, Time taken: {model.taken_time}, End?: {is_found_stop}")
+    return is_found_stop
+
+def run_game_without_gui():
+    grid, model = initial_variables()
+    is_found_stop = execute_model(grid, model)
+    return model, is_found_stop
+
+def auto_run(max_iter=10):
+    times, counts, ends = [], [], []
+    round = 0
+    while round < max_iter:
+        model, is_found_stop = run_game_without_gui()
+        if is_found_stop or AUTO_INCLUDED_FAIL:
+            times.append(model.taken_time)
+            counts.append(model.total_closed)
+            ends.append(is_found_stop)
+            round += 1
+    print(times)
+    print(counts)
 
 def run_game(screen):
     grid, model = initial_variables(screen)
@@ -51,10 +77,7 @@ def run_game(screen):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE and start and end:
-                    # for every spot in grid, put its valid adjecent spot to its neighbors list
-                    grid.update_spot_neighbors()
-                    # execute algorithm
-                    model.forward(grid)
+                    execute_model(grid, model)
                 if event.key == pygame.K_c:
                     grid, model = initial_variables(screen)
                 if event.key == pygame.K_s:
@@ -81,4 +104,7 @@ def main():
     run_game(screen)
 
 if __name__ == '__main__':
-    main()
+    if AUTO_RUN:
+        auto_run(max_iter=AUTO_MAX_ITER)
+    else:
+        main()

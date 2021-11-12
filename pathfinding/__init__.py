@@ -1,11 +1,12 @@
 import pygame
 import time
+import random
 import numpy as np
 from configs import *
 import fastjson as fj
 
 class Spot:
-    def __init__(self, screen, row, col, width, total_rows):
+    def __init__(self, row, col, width, total_rows, screen=None):
         self.screen = screen
         self.row = row # index x in spots
         self.col = col # index y in spots
@@ -24,6 +25,9 @@ class Spot:
     
     def is_open(self):
         return self.color == GREEN
+    
+    def is_initial(self):
+        return self.color == WHITE
 
     def is_barrier(self):
         return self.color == BLACK
@@ -56,7 +60,8 @@ class Spot:
         self.color = TURQUOISE
 
     def draw(self):
-        pygame.draw.rect(self.screen, self.color, (self.x, self.y, self.width, self.width))
+        if self.screen:
+            pygame.draw.rect(self.screen, self.color, (self.x, self.y, self.width, self.width))
 
     def update_neighbors(self, grid):
         self.neighbors = []
@@ -96,7 +101,7 @@ class Spot:
 
 
 class Grid:
-    def __init__(self, screen, rows, cols, generate_barrier=False, threshold=RANDOM_BARRIER_THRESHOLD, load_filename=None):
+    def __init__(self, rows, cols, screen=None, generate_barrier=False, generate_start_stop=False, threshold=RANDOM_BARRIER_THRESHOLD, load_filename=None):
         self.screen = screen
         self.rows = rows
         self.cols = cols
@@ -113,10 +118,17 @@ class Grid:
             self.pattern = self.random_barrier_state()
             self.generate_barrier_by_pattern(self.pattern)
         
+        self.generate_start_stop = generate_start_stop
+        if self.generate_start_stop:
+            self.random_start_stop()
+
         # load map
         self.load_filename = load_filename
         if self.load_filename:
             self.load()
+
+    def has_gui(self):
+        return (self.screen is not None)
 
     def get_start(self) -> Spot:
         return self._start
@@ -140,6 +152,16 @@ class Grid:
         arr_binarized = np.int32(arr <= self.threshold)
         return arr_binarized
     
+    def random_start_stop(self):
+        poses = [(spot.row, spot.col) for rows in self._spots for spot in rows if spot.is_initial()]
+        idx = random.randint(0, len(poses)-1)
+        self._start = self._spots[poses[idx][0]][poses[idx][1]]
+        self._start.make_start()
+        poses = [(spot.row, spot.col) for rows in self._spots for spot in rows if spot.is_initial()]
+        idx = random.randint(0, len(poses)-1)
+        self._end = self._spots[poses[idx][0]][poses[idx][1]]
+        self._end.make_end()
+
     def generate_barrier_by_pattern(self, pattern):
         # assign the barrier given the pattern
         for i, rows in enumerate(self._spots):
@@ -153,7 +175,7 @@ class Grid:
         for i in range(self.rows):
             self._spots.append([])
             for j in range(self.rows):
-                spot = Spot(self.screen, i, j, gap, self.rows)
+                spot = Spot(i, j, gap, self.rows, screen=self.screen)
                 self._spots[i].append(spot)
     
     def _draw_grid(self):
@@ -169,10 +191,10 @@ class Grid:
                 spot.draw()
 
     def draw(self):
-        # win.fill(WHITE)
-        self._draw_spot()
-        self._draw_grid()
-        pygame.display.update()
+        if self.screen:
+            self._draw_spot()
+            self._draw_grid()
+            pygame.display.update()
     
     def get_spot_by_pos(self, pos) -> Spot:
         row, col = self._get_pos(pos)

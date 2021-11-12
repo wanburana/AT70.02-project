@@ -19,6 +19,7 @@ class AStar(AlgorithmModule):
             draw()
 
     def forward(self, grid):
+        super().start_timer()
         draw = lambda: grid.draw()
         start = grid.get_start()
         end = grid.get_end()
@@ -35,14 +36,16 @@ class AStar(AlgorithmModule):
         open_set_hash = {start}
 
         while not open_set.empty():
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
+            if grid.has_gui():
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
             current = open_set.get()[2]
             open_set_hash.remove(current)
             if current == end:
                 self.reconstruct_path(came_from, end, draw)
                 end.make_end()
+                super().stop_timer()
                 return True
             for neighbor in current.neighbors:
                 temp_g_score = g_score[current] + 1 # g_score increases as the algorithm steps
@@ -60,4 +63,5 @@ class AStar(AlgorithmModule):
             if current != start:
                 current.make_closed()
                 super().count_closed()
+        super().stop_timer()
         return False

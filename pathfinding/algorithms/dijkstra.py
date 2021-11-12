@@ -13,6 +13,7 @@ class Dijkstra(AlgorithmModule):
             draw()
 
     def forward(self, grid):
+        super().start_timer()
         draw = lambda: grid.draw()
         start = grid.get_start()
         end = grid.get_end()
@@ -26,9 +27,10 @@ class Dijkstra(AlgorithmModule):
         open_set_hash = {start}
 
         while not open_set.empty():
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
+            if grid.has_gui():
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        pygame.quit()
             current = open_set.get()[2]
             open_set_hash.remove(current)
 
@@ -36,6 +38,7 @@ class Dijkstra(AlgorithmModule):
             if current == end:
                 self.reconstruct_path(came_from, end, draw)
                 end.make_end()
+                super().stop_timer()
                 return True
 
             for neighbor in current.neighbors:
@@ -54,4 +57,5 @@ class Dijkstra(AlgorithmModule):
             if current != start:
                 current.make_closed()
                 super().count_closed()
+        super().stop_timer()
         return False

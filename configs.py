@@ -13,14 +13,15 @@ PYGAME_TITLE = "A* Path Finding Algorithm"
     - Map is not uploaded to Github.
 '''
 LOAD_MAP_NAME=None
-# LOAD_MAP_NAME='map-50x50.json' # None or filename
+# LOAD_MAP_NAME='map-dijkstra-50x50-1636683032.json' # None or filename
 
 
 '''
     Auto Generate Map (AGM) will be disabled, if LOAD feature is used.
+    Auto Generate Start and Stop spot.
 '''
-GENERATE_BARRIER=False
-
+GENERATE_BARRIER=True
+GENERATE_START_STOP=True
 
 '''
     - Set model that is used for shortest path finding.
@@ -29,7 +30,12 @@ GENERATE_BARRIER=False
     - Default is AStar.
 '''
 MODEL_NAME="Dijkstra"
-
+'''
+    Auto run (without GUI)
+'''
+AUTO_RUN=True
+AUTO_MAX_ITER=200
+AUTO_INCLUDED_FAIL=False
 
 '''
     Constants config.
