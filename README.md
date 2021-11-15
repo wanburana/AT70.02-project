@@ -6,7 +6,7 @@ Python implementation of Pathfinding algorithm using Pygame.
 
 ## Description
 
-This project is part of AIT's AT70.02 Data Strucure and Algorithm to demeonstrate two pathfinding algorithm including
+This project is part of AIT's AT70.02 Data Strucure and Algorithm to demonstrate two pathfinding algorithm including
 - A-star Algorithm
 - Dijkstra Algorithm
 
