@@ -1,6 +1,7 @@
 # AT70.02 Project: Path Finding
 
 Python implementation of Pathfinding algorithm using pygame.
+![alt-text](https://github.com/wanburana/AT70.02-project/blob/main/examples/astar_auto.gif)
 
 ## Description
 
