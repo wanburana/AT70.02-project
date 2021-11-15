@@ -1,7 +1,7 @@
 '''
     Application setting.
 '''
-PYGAME_TITLE = "A* Path Finding Algorithm"
+PYGAME_TITLE = "Path Finding Algorithm"
 
 
 '''
@@ -20,20 +20,20 @@ LOAD_MAP_NAME=None
     Auto Generate Map (AGM) will be disabled, if LOAD feature is used.
     Auto Generate Start and Stop spot.
 '''
-GENERATE_BARRIER=True
-GENERATE_START_STOP=True
+GENERATE_BARRIER=False
+GENERATE_START_STOP=False
 
 '''
     - Set model that is used for shortest path finding.
     - Case-Insensitive.
-    - Models: AStar, Dijkstra, Bellman.
+    - Models: AStar, Dijkstra.
     - Default is AStar.
 '''
-MODEL_NAME="Dijkstra"
+MODEL_NAME="AStar"
 '''
     Auto run (without GUI)
 '''
-AUTO_RUN=True
+AUTO_RUN=False
 AUTO_MAX_ITER=200
 AUTO_INCLUDED_FAIL=False
 
