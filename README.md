@@ -34,11 +34,19 @@ python main.py
 
 ## Help
 
+### In-game shortcut
 - `Left-click` to create `start`, `end`, and `barrier` (`start`, `end`, and `barrier` will be created respectively)  
 - `Right-click` to remove/reset that spot  
 - `SPACEBAR` to run the algorithm (`start` and `end` need to be already created.)  
 - `c` to reset the whole program  
 - `s` to save the current map  
+
+### configs.py setting
+- LOAD_MAP_NAME (String or None): path of the generated map
+- GENERATE_BARRIER (Boolean): Whether the barrier will be generated randomly when the program start or not
+- GENERATE_START_STOP (Boolean): Whether the start and stop will be generated randomly when the program start or not
+- MODEL_NAME (String): Algorithm used in the program (AStar, Dijkstra)
+- 
 
 ## Authors
 
