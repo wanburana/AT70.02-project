@@ -34,11 +34,11 @@ python main.py
 
 ## Help
 
-`Left-click` to create `start`, `end`, and `barrier` (`start`, `end`, and `barrier` will be created respectively)
-`Right-click` to remove/reset that spot
-`SPACEBAR` to run the algorithm (`start` and `end` need to be already created.)
-`C` to reset the whole program
-`S` to save the current map
+- `Left-click` to create `start`, `end`, and `barrier` (`start`, `end`, and `barrier` will be created respectively)  
+- `Right-click` to remove/reset that spot  
+- `SPACEBAR` to run the algorithm (`start` and `end` need to be already created.)  
+- `c` to reset the whole program  
+- `s` to save the current map  
 
 ## Authors
 
