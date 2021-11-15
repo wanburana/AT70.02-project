@@ -61,5 +61,5 @@ ex. [@DomPizzie](https://twitter.com/dompizzie)
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-* [A* Pathfinding Visualization Tutorial - Python A* Path Finding Tutorial](https://www.youtube.com/watch?v=JtiK0DOeI4A) (A-star algorithm tuturial & Implementation guideline
+* [A* Pathfinding Visualization Tutorial - Python A* Path Finding Tutorial](https://www.youtube.com/watch?v=JtiK0DOeI4A) (A-star algorithm tuturial & Implementation guideline)
 * [DomPizzie/README-Template.md](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc) (Awesome simple README template)
