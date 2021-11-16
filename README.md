@@ -27,8 +27,6 @@ pip install -r requirements.txt
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
 ```
 python main.py
 ```
@@ -43,18 +41,16 @@ python main.py
 - `s` to save the current map  
 
 ### configs.py setting
-- LOAD_MAP_NAME (String or None): path of the generated map, set to None to start with empty map
-- GENERATE_BARRIER (Boolean): Whether the barrier will be generated randomly when the program start or not
-- GENERATE_START_STOP (Boolean): Whether the start and stop will be generated randomly when the program start or not
-- MODEL_NAME (String): Algorithm used in the program (AStar, Dijkstra)
-- RANDOM_BARRIER_THRESHOLD (Float): the probability that a spot will be generated as a barrier (in case `GENERATE_BARRIER` is set to `True`)
+- `LOAD_MAP_NAME` (String or None): path of the generated map, set to `None` to start with empty map
+- `GENERATE_BARRIER` (Boolean): Whether the barrier will be generated randomly when the program start or not
+- `GENERATE_START_STOP` (Boolean): Whether the start and stop will be generated randomly when the program start or not
+- `MODEL_NAME` (String): Algorithm used in the program (AStar, Dijkstra)
+- `RANDOM_BARRIER_THRESHOLD` (Float): the probability that a spot will be generated as a barrier (in case `GENERATE_BARRIER` is set to `True`)
 
 ## Authors
 
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@Suphawich](https://github.com/supskv)
+- Dominique Pizzie  
+- [@Suphawich](https://github.com/supskv)
 
 
 ## Acknowledgments
