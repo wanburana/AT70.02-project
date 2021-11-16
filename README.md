@@ -49,7 +49,7 @@ python main.py
 
 ## Authors
 
-- Dominique Pizzie  
+- [Jirasak Buranathawornsom](https://github.com/wanburana)
 - [@Suphawich](https://github.com/supskv)
 
 
