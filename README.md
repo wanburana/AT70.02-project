@@ -14,8 +14,8 @@ This project is part of AIT's AT70.02 Data Strucure and Algorithm to demonstrate
 
 ### Dependencies
 
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* Windows 10, Linux, Mac OS
+* [Python > 3.8](https://www.python.org)
 
 ### Installing
 
