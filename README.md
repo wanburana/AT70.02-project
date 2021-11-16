@@ -15,7 +15,7 @@ This project is part of AIT's AT70.02 Data Strucure and Algorithm to demonstrate
 ### Dependencies
 
 * Windows 10, Linux, Mac OS
-* [Python > 3.8](https://www.python.org)
+* [Python](https://www.python.org) > 3.8
 
 ### Installing
 
@@ -23,7 +23,6 @@ This project is part of AIT's AT70.02 Data Strucure and Algorithm to demonstrate
 git clone https://github.com/wanburana/AT70.02-project.git
 cd AT70.02-project
 pip install -r requirements.txt
-
 ```
 
 ### Executing program
