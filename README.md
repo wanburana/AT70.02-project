@@ -15,7 +15,7 @@ This project is part of AIT's AT70.02 Data Strucure and Algorithm to demonstrate
 ### Dependencies
 
 * Windows 10, Linux, Mac OS
-* [Python](https://www.python.org) > 3.8
+* [Python](https://www.python.org) >= 3.8
 
 ### Installing
 
