@@ -20,9 +20,9 @@ This project is part of AIT's AT70.02 Data Strucure and Algorithm to demonstrate
 ### Installing
 
 ```
-git clone ...
-cd ...
-pip isntall ...
+git clone https://github.com/wanburana/AT70.02-project.git
+cd AT70.02-project
+pip install -r requirements.txt
 
 ```
 
@@ -55,7 +55,7 @@ python main.py
 Contributors names and contact info
 
 ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+ex. [@Suphawich](https://github.com/supskv)
 
 
 ## Acknowledgments
