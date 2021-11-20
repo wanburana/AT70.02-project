@@ -89,7 +89,7 @@ def main():
     # Initialise screen
     pygame.init()
     screen = pygame.display.set_mode((WIDTH, WIDTH))
-    pygame.display.set_caption(PYGAME_TITLE)
+    pygame.display.set_caption(f"{PYGAME_TITLE} - {MODEL_NAME}")
 
     # Fill background
     background = pygame.Surface(screen.get_size())

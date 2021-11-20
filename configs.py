@@ -13,7 +13,9 @@ PYGAME_TITLE = "Path Finding Algorithm"
     - Map is not uploaded to Github.
 '''
 LOAD_MAP_NAME=None
-# LOAD_MAP_NAME='map-dijkstra-50x50-1636683032.json' # None or filename
+# LOAD_MAP_NAME='end_found.json' # None or filename
+# LOAD_MAP_NAME='end_not_found.json'
+# LOAD_MAP_NAME='end_found_from_middle.json'
 
 
 '''
@@ -23,6 +25,7 @@ LOAD_MAP_NAME=None
 GENERATE_BARRIER=False
 GENERATE_START_STOP=False
 
+
 '''
     - Set model that is used for shortest path finding.
     - Case-Insensitive.
@@ -30,12 +33,15 @@ GENERATE_START_STOP=False
     - Default is AStar.
 '''
 MODEL_NAME="AStar"
+
+
 '''
     Auto run (without GUI)
 '''
 AUTO_RUN=False
 AUTO_MAX_ITER=200
 AUTO_INCLUDED_FAIL=False
+
 
 '''
     Constants config.
