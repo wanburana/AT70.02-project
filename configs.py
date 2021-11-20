@@ -16,6 +16,7 @@ LOAD_MAP_NAME=None
 # LOAD_MAP_NAME='end_found.json' # None or filename
 # LOAD_MAP_NAME='end_not_found.json'
 # LOAD_MAP_NAME='end_found_from_middle.json'
+# LOAD_MAP_NAME='astar_flaw.json'
 
 
 '''
