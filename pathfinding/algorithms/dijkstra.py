@@ -43,11 +43,13 @@ class Dijkstra(AlgorithmModule):
 
             for neighbor in current.neighbors:
                 temp_score = score[current] + 1
-
+                
+                # relaxing
                 if temp_score < score[neighbor]:
                     came_from[neighbor] = current
                     score[neighbor] = temp_score
-
+                    
+                    # add new node to priority queue and set
                     if neighbor not in open_set_hash:
                         count += 1
                         open_set.put((score[neighbor], count, neighbor))
