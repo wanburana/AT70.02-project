@@ -49,7 +49,7 @@ class Dijkstra(AlgorithmModule):
                     came_from[neighbor] = current
                     score[neighbor] = temp_score
                     
-                    # add new node to priority queue and set
+                    # add new instance to priority queue and set
                     if neighbor not in open_set_hash:
                         count += 1
                         open_set.put((score[neighbor], count, neighbor))
