@@ -49,11 +49,14 @@ class AStar(AlgorithmModule):
                 return True
             for neighbor in current.neighbors:
                 temp_g_score = g_score[current] + 1 # g_score increases as the algorithm steps
-
+                
+                # relaxing
                 if temp_g_score < g_score[neighbor]:
                     came_from[neighbor] = current
                     g_score[neighbor] = temp_g_score
                     f_score[neighbor] = temp_g_score + self.h(neighbor.get_pos(), end.get_pos())
+                    
+                    # add new instance to priority queue and set
                     if neighbor not in open_set_hash:
                         count += 1
                         open_set.put((f_score[neighbor], count, neighbor))
